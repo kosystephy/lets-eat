@@ -20,6 +20,8 @@ use App\Http\Controllers\ArticleController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/short/{id}', [ArticleController::class, 'short']);
+
 
 Route::group([
     'middleware' => 'auth:sanctum',

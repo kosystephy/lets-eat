@@ -39,4 +39,10 @@ class ArticleController extends Controller
     public function removeArticle($id) {
         return Article::findOrFail($id)->delete();
     }
+    public function short($id){
+        $article = Article::findOrFail($id);
+        $article->content = "";
+        $article->mediaURL ="";
+        return $article;
+    }
 }
