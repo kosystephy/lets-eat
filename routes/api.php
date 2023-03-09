@@ -29,8 +29,18 @@ Route::group([
     Route::get('/user',  function (Request $request) {
                                 return $request->user();
                          });
-    Route::post('/article/{id}', [ArticleController::class, 'Article']);
+    Route::post('/article/{id}', [ArticleController::class, 'getArticle'])->where('id', '[0-9]+'); // get an article
+    
 });
 
+Route::group( ['middleware' => ['auth:sanctum', 'admin']], function () {
+    Route::delete('/article/delete/{id}', [ArticleController::class, 'removeArticle']); // delete an article
+    Route::post('/article/add', [ArticleController::class, 'addArticle']); // edit an article
+    Route::post('/article/edit/{id}', [ArticleController::class, 'editArticle']); // add an article
 
+}
+
+
+
+);
 
