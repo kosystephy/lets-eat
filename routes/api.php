@@ -22,7 +22,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/short/{id}', [ArticleController::class, 'short']);
 Route::get('/newest/{nb}', [ArticleController::class, 'newest'] );
-
+Route::get('/byTag/{tag}', [ArticleController::class, 'getArticlesByTag'] );
 
 
 

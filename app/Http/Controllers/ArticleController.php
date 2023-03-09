@@ -18,6 +18,18 @@ class ArticleController extends Controller
         return response()->json([$article]);
       
     }
+    public function getArticlesByTag($tag){
+        
+        $articles = Tag::where('id', $tag)->firstOrFail()->articles;
+        return $articles;
+        foreach($articles as $article){
+            $tags = $article->tags();
+            $article['tags'] = $tags;   
+            $article->content = "";
+            $article->mediaURL ="";
+        }
+        return $articles;
+    }
     public function newest($nb){
         $articles = Article::orderBy("date", "desc")->take($nb)->get();
         foreach($articles as $article){
