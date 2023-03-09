@@ -44,7 +44,7 @@ class ArticleController extends Controller
         return $articles;
     }
     public function newest($nb){
-        $articles = Article::orderBy("date", "desc")->take($nb)->get();
+        $articles = Article::orderBy("created_at", "desc")->take($nb)->get();
         foreach($articles as $article){
             $tags = $article->tags;
             $article['tags'] = $tags;
