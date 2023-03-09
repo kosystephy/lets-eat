@@ -8,6 +8,19 @@ use App\Models\Tag;
 
 class ArticleController extends Controller
 {
+
+    public function search(Request $request, $search){  
+        $articles = Article::whereRaw('title LIKE "%'.$search.'%"')->get();
+            foreach($articles as $article){
+            $tags = $article->tags;
+            $article['tags'] = $tags;   
+            $article->content = "";
+            $article->mediaURL ="";
+        }
+        return $articles;
+
+    }
+
     public function getArticle(Request $request) {
     
     $article = Article::where('id', $request["id"])->firstOrFail();
@@ -20,8 +33,8 @@ class ArticleController extends Controller
     }
     public function getArticlesByTag($tag){
         
-        $articles = Tag::where('id', $tag)->firstOrFail()->articles;
-        return $articles;
+        $articles = Tag::where('id', $tag)->firstOrFail()->articles ;
+        
         foreach($articles as $article){
             $tags = $article->tags();
             $article['tags'] = $tags;   
@@ -47,7 +60,6 @@ class ArticleController extends Controller
         $article->mediaType = $request->input("mediaType");
         $article->mediaURL = $request->input("mediaURL");
         $article->leadStory = $request->input("leadStory");
-        $article->tags();
         $article->save();
         return $article;
     }
